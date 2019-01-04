@@ -1,0 +1,38 @@
+@startuml
+
+abstract class Subject {
+  # Observer $observers[];
+  + void registerObserver(Observer $observer)
+  + void removeObserver(Observer $observer)
+  + {abstract} string notifyObservers(Observer $observer)
+}
+
+class FizzBuzz {
+  - int $number
+  + __construct()
+  + string notifyObservers(Observer $observer)
+  + void start()
+}
+
+abstract class Observer {
+  + int $id
+  + Subject $subject
+  + __construct(Subject $subject)
+  + {abstract} string notify(int $number)
+}
+
+class FizzRule {
+  + string notifyObservers(Observer $observer)
+}
+
+class BuzzRule {
+  + string notifyObservers(Observer $observer)
+}
+
+Subject <|-- FizzBuzz
+Observer <|-- FizzRule
+Observer <|-- BuzzRule
+
+Subject "1" --> "*" Observer
+
+@enduml
